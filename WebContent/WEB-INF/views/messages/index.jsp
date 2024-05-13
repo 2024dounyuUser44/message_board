@@ -1,6 +1,15 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<c:if test="${errors != null}">
+    <div id="flush_error">
+        入力内容にエラーがあります。<br />
+                <c:forEach var="error" items="${errors}">
+            ・<c:out value="${error}" /><br />
+        </c:forEach>
+
+    </div>
+</c:if>
+<label for="title">タイトル</label><br />
 <c:import url="../layout/app.jsp">
     <c:param name="content">
         <c:if test="${flush != null}">
@@ -18,20 +27,6 @@
                         value="${message.content}" /></li>
             </c:forEach>
         </ul>
-        <div id="pagination">
-            （全 ${messages_count} 件）<br />
-            <c:forEach var="i" begin="1" end="${((messages_count - 1) / 15) + 1}" step="1">
-                <c:choose>
-                    <c:when test="${i == page}">
-                        <c:out value="${i}" />&nbsp;
-                    </c:when>
-                    <c:otherwise>
-                        <a href="${pageContext.request.contextPath}/index?page=${i}"><c:out value="${i}" /></a>&nbsp;
-                    </c:otherwise>
-                </c:choose>
-            </c:forEach>
-        </div>
-        <p><a href="${pageContext.request.contextPath}/new">新規メッセージの投稿</a></p>
 
         <p>
             <a href="${pageContext.request.contextPath}/new">新規メッセージの投稿</a>
